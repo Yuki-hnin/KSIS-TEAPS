@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { PrincipalDashboard } from './components/principal/PrincipalDashboard';
 import { TeacherDashboard } from './components/teacher/TeacherDashboard';
 import { AdminDashboard } from './components/admin/AdminDashboard';
@@ -48,10 +48,8 @@ export default function App() {
     setCurrentView('login');
   };
 
-  const handleNavigate = (view: string | View) {
-    if (typeof view === 'string' && Object.values<View>(['principal', 'teacher', 'admin', 'evaluation-form', 'reports', 'login', 'kpi-info', 'kpi-calculation', 'attendance', 're-evaluation', 'teacher-list', 'teacher-evaluation', 'add-teacher']).includes(view)) {
-      setCurrentView(view as View);
-    }
+  const handleNavigate = (view: View) => {
+    setCurrentView(view);
   };
 
   if (currentView === 'login') {
@@ -71,7 +69,7 @@ export default function App() {
         <AdminDashboard onNavigate={handleNavigate} onLogout={handleLogout} userName={userName} />
       )}
       {currentView === 'evaluation-form' && (
-        <EvaluationForm onNavigate={handleNavigate} onLogout={handleLogout} userName={userName} userRole={userRole ?? 'principal'} />
+        <EvaluationForm onNavigate={handleNavigate} onLogout={handleLogout} userName={userName} />
       )}
       {currentView === 'reports' && (
         <ReportScreen onNavigate={handleNavigate} onLogout={handleLogout} userName={userName} userRole={userRole ?? 'principal'} />
